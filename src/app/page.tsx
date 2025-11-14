@@ -1,22 +1,24 @@
 "use client";
 
 import { useState } from "react";
-import { Camera, Zap, TrendingDown, CheckCircle2, X, Flame, Target, Award, Copy, Check, Crown, Sparkles, Rocket, Star } from "lucide-react";
+import { Camera, Zap, TrendingDown, CheckCircle2, X, Flame, Target, Award, Copy, Check, Crown, Sparkles, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 
 export default function SnapFitApp() {
   const [showPaywall, setShowPaywall] = useState(false);
+  const [showBeginnerModal, setShowBeginnerModal] = useState(false);
+  const [showEliteModal, setShowEliteModal] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  const pixCode = "00020126330014br.gov.bcb.pix0111020111536035204000053039865406147.005802BR5925PEDRO VINICIUS RODRIGUES 6009Sao Paulo62290525REC69178BE0D7C7E4815774086304C840";
+  const pixCodeBeginner = "00020126330014br.gov.bcb.pix011102011153603520400005303986540597.005802BR5925PEDROVINICIUSRODRIGUES6009SaoPaulo62290525REC6917AC53284C08863618116304D6EA";
+  const pixCodeElite = "00020126330014br.gov.bcb.pix0111020111536035204000053039865406297.005802BR5925PEDROVINICIUSRODRIGUES6009SaoPaulo62290525REC6917ACA6AE0C51316583156304481F";
 
   const handleCameraClick = () => {
     setShowPaywall(true);
   };
 
-  const handleCopyPix = () => {
-    navigator.clipboard.writeText(pixCode);
+  const handleCopyPix = (code: string) => {
+    navigator.clipboard.writeText(code);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -64,15 +66,6 @@ export default function SnapFitApp() {
                 </div>
               </div>
             </div>
-
-            {/* CTA Principal */}
-            <Button 
-              onClick={handleCameraClick}
-              className="h-16 px-12 text-xl font-black bg-gradient-to-r from-yellow-400 via-orange-500 to-pink-500 hover:from-yellow-500 hover:via-orange-600 hover:to-pink-600 text-white shadow-2xl hover:shadow-yellow-500/50 hover:scale-110 transition-all duration-300 rounded-2xl border-4 border-white/30"
-            >
-              <Rocket className="w-6 h-6 mr-3" />
-              Começar Transformação Agora
-            </Button>
           </div>
         </div>
       </div>
@@ -155,15 +148,6 @@ export default function SnapFitApp() {
                   <p className="text-3xl font-black text-green-400">8g</p>
                 </div>
               </div>
-
-              {/* CTA Button */}
-              <Button 
-                onClick={handleCameraClick}
-                className="w-full h-16 text-lg font-black bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 hover:from-purple-700 hover:via-pink-700 hover:to-orange-600 shadow-2xl hover:shadow-purple-500/50 transition-all duration-300 hover:scale-105 rounded-xl"
-              >
-                <Camera className="w-6 h-6 mr-3" />
-                Experimentar Agora
-              </Button>
             </div>
           </div>
         </div>
@@ -216,7 +200,7 @@ export default function SnapFitApp() {
             </ul>
 
             <Button 
-              onClick={handleCameraClick}
+              onClick={() => setShowBeginnerModal(true)}
               className="w-full h-14 text-lg font-bold bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800"
             >
               Começar Agora
@@ -273,7 +257,6 @@ export default function SnapFitApp() {
                 onClick={handleCameraClick}
                 className="w-full h-16 text-xl font-black bg-gradient-to-r from-yellow-400 via-orange-500 to-pink-500 hover:from-yellow-500 hover:via-orange-600 hover:to-pink-600 shadow-2xl hover:shadow-yellow-500/50"
               >
-                <Rocket className="w-6 h-6 mr-2" />
                 Garantir Minha Vaga
               </Button>
             </div>
@@ -312,7 +295,7 @@ export default function SnapFitApp() {
             </ul>
 
             <Button 
-              onClick={handleCameraClick}
+              onClick={() => setShowEliteModal(true)}
               className="w-full h-14 text-lg font-bold bg-gradient-to-r from-pink-600 to-pink-700 hover:from-pink-700 hover:to-pink-800"
             >
               Transformação Elite
@@ -382,7 +365,209 @@ export default function SnapFitApp() {
         </div>
       </div>
 
-      {/* Paywall Modal Premium */}
+      {/* Modal Plano Iniciante (R$ 97) */}
+      {showBeginnerModal && (
+        <div className="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 z-50 animate-in fade-in duration-300">
+          <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl max-w-md w-full p-8 relative animate-in zoom-in duration-300 max-h-[90vh] overflow-y-auto border border-white/10">
+            <button 
+              onClick={() => setShowBeginnerModal(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-white z-10 transition-colors"
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            <div className="text-center mb-8">
+              <div className="w-20 h-20 bg-gradient-to-r from-purple-600 to-purple-700 rounded-full flex items-center justify-center mx-auto mb-4 shadow-2xl">
+                <Target className="w-10 h-10 text-white" />
+              </div>
+              <h3 className="text-3xl font-black mb-2 text-white">Plano Iniciante</h3>
+              <p className="text-gray-300">
+                Comece sua transformação agora
+              </p>
+            </div>
+
+            <div className="bg-gradient-to-r from-purple-500/20 to-purple-600/20 rounded-2xl p-6 mb-6 border border-purple-400/30">
+              <div className="text-center mb-4">
+                <span className="text-6xl font-black text-white">
+                  R$ 97
+                </span>
+              </div>
+              <p className="text-center text-sm text-gray-300 mb-4">
+                Pagamento único • Acesso completo
+              </p>
+
+              {/* Instruções PIX */}
+              <div className="bg-slate-900/50 rounded-xl p-4 border border-white/10 backdrop-blur-sm">
+                <h4 className="font-black text-center mb-3 text-white flex items-center justify-center gap-2">
+                  <Zap className="w-5 h-5 text-yellow-400" />
+                  Pagamento Instantâneo PIX
+                </h4>
+                <ol className="text-sm text-gray-300 space-y-3 mb-4">
+                  <li className="flex gap-3">
+                    <span className="font-bold text-purple-400 flex-shrink-0">1.</span>
+                    <span>Copie o código PIX abaixo</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="font-bold text-purple-400 flex-shrink-0">2.</span>
+                    <span>Abra o app do seu banco</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="font-bold text-purple-400 flex-shrink-0">3.</span>
+                    <span>Cole e confirme o pagamento</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="font-bold text-purple-400 flex-shrink-0">4.</span>
+                    <span>Acesso liberado automaticamente!</span>
+                  </li>
+                </ol>
+
+                {/* Código PIX */}
+                <div className="bg-slate-800 rounded-lg p-3 mb-3 border border-white/10">
+                  <p className="text-xs text-gray-400 mb-2 font-semibold">Código PIX Copia e Cola:</p>
+                  <p className="text-xs text-gray-300 break-all font-mono leading-relaxed">
+                    {pixCodeBeginner}
+                  </p>
+                </div>
+
+                <Button 
+                  onClick={() => handleCopyPix(pixCodeBeginner)}
+                  className="w-full h-12 font-bold bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white shadow-xl"
+                >
+                  {copied ? (
+                    <>
+                      <Check className="w-5 h-5 mr-2" />
+                      Código Copiado!
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-5 h-5 mr-2" />
+                      Copiar Código PIX
+                    </>
+                  )}
+                </Button>
+              </div>
+            </div>
+
+            <div className="text-center space-y-2 text-xs text-gray-400">
+              <p className="flex items-center justify-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-green-400" />
+                Pagamento 100% seguro via PIX
+              </p>
+              <p className="flex items-center justify-center gap-2">
+                <Zap className="w-4 h-4 text-yellow-400" />
+                Acesso liberado em até 2 minutos
+              </p>
+              <p className="flex items-center justify-center gap-2">
+                <Award className="w-4 h-4 text-purple-400" />
+                Garantia de 30 dias
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal Plano Elite (R$ 297) */}
+      {showEliteModal && (
+        <div className="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 z-50 animate-in fade-in duration-300">
+          <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl max-w-md w-full p-8 relative animate-in zoom-in duration-300 max-h-[90vh] overflow-y-auto border border-white/10">
+            <button 
+              onClick={() => setShowEliteModal(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-white z-10 transition-colors"
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            <div className="text-center mb-8">
+              <div className="w-20 h-20 bg-gradient-to-r from-pink-600 to-pink-700 rounded-full flex items-center justify-center mx-auto mb-4 shadow-2xl">
+                <Star className="w-10 h-10 text-white" />
+              </div>
+              <h3 className="text-3xl font-black mb-2 text-white">Plano Elite</h3>
+              <p className="text-gray-300">
+                Transformação total garantida
+              </p>
+            </div>
+
+            <div className="bg-gradient-to-r from-pink-500/20 to-pink-600/20 rounded-2xl p-6 mb-6 border border-pink-400/30">
+              <div className="text-center mb-4">
+                <span className="text-6xl font-black text-white">
+                  R$ 297
+                </span>
+              </div>
+              <p className="text-center text-sm text-gray-300 mb-4">
+                Pagamento único • Acesso vitalício
+              </p>
+
+              {/* Instruções PIX */}
+              <div className="bg-slate-900/50 rounded-xl p-4 border border-white/10 backdrop-blur-sm">
+                <h4 className="font-black text-center mb-3 text-white flex items-center justify-center gap-2">
+                  <Zap className="w-5 h-5 text-yellow-400" />
+                  Pagamento Instantâneo PIX
+                </h4>
+                <ol className="text-sm text-gray-300 space-y-3 mb-4">
+                  <li className="flex gap-3">
+                    <span className="font-bold text-pink-400 flex-shrink-0">1.</span>
+                    <span>Copie o código PIX abaixo</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="font-bold text-pink-400 flex-shrink-0">2.</span>
+                    <span>Abra o app do seu banco</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="font-bold text-pink-400 flex-shrink-0">3.</span>
+                    <span>Cole e confirme o pagamento</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="font-bold text-pink-400 flex-shrink-0">4.</span>
+                    <span>Acesso liberado automaticamente!</span>
+                  </li>
+                </ol>
+
+                {/* Código PIX */}
+                <div className="bg-slate-800 rounded-lg p-3 mb-3 border border-white/10">
+                  <p className="text-xs text-gray-400 mb-2 font-semibold">Código PIX Copia e Cola:</p>
+                  <p className="text-xs text-gray-300 break-all font-mono leading-relaxed">
+                    {pixCodeElite}
+                  </p>
+                </div>
+
+                <Button 
+                  onClick={() => handleCopyPix(pixCodeElite)}
+                  className="w-full h-12 font-bold bg-gradient-to-r from-pink-600 to-pink-700 hover:from-pink-700 hover:to-pink-800 text-white shadow-xl"
+                >
+                  {copied ? (
+                    <>
+                      <Check className="w-5 h-5 mr-2" />
+                      Código Copiado!
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-5 h-5 mr-2" />
+                      Copiar Código PIX
+                    </>
+                  )}
+                </Button>
+              </div>
+            </div>
+
+            <div className="text-center space-y-2 text-xs text-gray-400">
+              <p className="flex items-center justify-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-green-400" />
+                Pagamento 100% seguro via PIX
+              </p>
+              <p className="flex items-center justify-center gap-2">
+                <Zap className="w-4 h-4 text-yellow-400" />
+                Acesso liberado em até 2 minutos
+              </p>
+              <p className="flex items-center justify-center gap-2">
+                <Award className="w-4 h-4 text-purple-400" />
+                Garantia de 30 dias
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Paywall Modal Premium - Plano Pro (R$ 147) */}
       {showPaywall && (
         <div className="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 z-50 animate-in fade-in duration-300">
           <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl max-w-md w-full p-8 relative animate-in zoom-in duration-300 max-h-[90vh] overflow-y-auto border border-white/10">
@@ -448,12 +633,12 @@ export default function SnapFitApp() {
                 <div className="bg-slate-800 rounded-lg p-3 mb-3 border border-white/10">
                   <p className="text-xs text-gray-400 mb-2 font-semibold">Código PIX Copia e Cola:</p>
                   <p className="text-xs text-gray-300 break-all font-mono leading-relaxed">
-                    {pixCode}
+                    00020126330014br.gov.bcb.pix0111020111536035204000053039865406147.005802BR5925PEDRO VINICIUS RODRIGUES 6009Sao Paulo62290525REC69178BE0D7C7E4815774086304C840
                   </p>
                 </div>
 
                 <Button 
-                  onClick={handleCopyPix}
+                  onClick={() => handleCopyPix("00020126330014br.gov.bcb.pix0111020111536035204000053039865406147.005802BR5925PEDRO VINICIUS RODRIGUES 6009Sao Paulo62290525REC69178BE0D7C7E4815774086304C840")}
                   className="w-full h-12 font-bold bg-gradient-to-r from-yellow-400 via-orange-500 to-pink-500 hover:from-yellow-500 hover:via-orange-600 hover:to-pink-600 text-white shadow-xl"
                 >
                   {copied ? (
